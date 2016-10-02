@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Sign up to donate to Hillary for each tweet by Trump!">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Donate to Hillary for each tweet by Trump!</title>
+    <link href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet" type="text/css">
+    <link href="css/site.css" rel="stylesheet" type="text/css">
+    <meta property="og:url" content="http://www.IfIHadAQuarter.com"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="Donate to Hillary for each tweet by Trump!"/>
+    <meta property="og:description" content="Sign up to donate to Hillary for each tweet by Trump!"/>
+    <meta property="og:image" content="https://c1.staticflickr.com/9/8105/8567825104_e14db572a1_k.jpg"/>
+  </head>
+  <body>
+    <div id="hero">
+      <div class="container">
+        <div class="row">
+          <h1 id="banner">Donate a quarter to Hillary every time Trump tweets.</h1>
+          <div id="signup">
+            <div class="input-group">
+              <input type="email" class="form-control" placeholder="email">
+              <span class="input-group-btn">
+                <button class="btn btn-success" onclick="pledge()">Pledge</button>
+              </span>
+            </div>
+            <p>Pledge 25 cents for each new Trump tweet. We'll count the tweets and remind you once a week. Unsubscribe at any time!</p>
+            <p>He's been tweeting about 10 times per day. Is it worth more than a daily coffee to have a president who doesn't say things like this?</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="modal">
+      <div class="modal-content">
+        <div class="above-fb">
+          <p>Thanks, please check your email!<p>
+        </div>
+        <div class="fb-like" data-href="http://www.IfIHadAQuarter.com" data-layout="standard" data-size="large" data-action="like" data-show-faces="true">fb shit</div>
+        <button class="btn btn-primary btn-close" onclick="closemodal()">Close</button>
+      </div>
+    </div>
+    
+    <footer>
+      DevProgress is an independent group fighting Trump and supporting progressive causes nationwide. 
+      Image by <a href="https://www.flickr.com/photos/gageskidmore">Gage Skidmore</a>
+    </footer>
+    
+    <script type="text/javascript">
+      function getsize() {
+        // force the responsive img height and following section's mgn top - xs
+        var imgheight = document.body.clientWidth * 1365/2048;
+        imgheight = parseInt(imgheight, 10) - 1;
+        //document.getElementById('banner').setAttribute("style","margin-top:" + (imgheight/2 - 80) + "px");
+        var banner = document.getElementById('banner');
+        var signup = document.getElementById('signup');
+        if (document.body.clientWidth < 768) {
+          // xs screens - mobile - signup shows below hero
+          banner.setAttribute("style","margin-top:" + (imgheight - banner.offsetHeight) + "px");
+          signup.setAttribute("style","margin-top:20px");
+        } else {
+          // non mobile, signup overlays hero
+          banner.setAttribute("style","margin-top:20px");
+          signup.setAttribute("style","margin-top:360px");
+          document.getElementById('hero').setAttribute("style","min-height:" + (window.innerHeight) + "px");;
+        }
+      }
+      getsize();
+      window.onresize = getsize;
+      
+      function pledge() {
+        
+        // ajax call 
+        
+        document.getElementById('modal').setAttribute("style","display:flex");;
+      }
+      
+      function closemodal() {
+        document.getElementById('modal').setAttribute("style","display:none");;
+      }
+    </script>
+    
+    <!-- Load Facebook SDK for JavaScript -->
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "http://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.7";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+  </body>
+</html>
