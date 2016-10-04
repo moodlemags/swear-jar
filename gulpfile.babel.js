@@ -106,7 +106,7 @@ gulp.task('scripts', () => {
     presets: ['es2015']
   })
     .bundle()
-    .pipe(source('main.min.js'))
+    .pipe(source('main.js'))
     .pipe(buffer())
     .pipe($.sourcemaps.init({loadMaps: true}))
     .pipe($.uglify())
