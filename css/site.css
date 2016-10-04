@@ -29,6 +29,11 @@
   text-align: center;
 }
 
+#emailerror{
+  color:red;
+  display:none;
+}
+
 #hero{
   margin: -20px 0 0;
   width: 100%;
@@ -39,6 +44,8 @@
   color: #fff;
   position: relative;
 }
+
+#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
 
 #modal{
   display: none;

@@ -21,10 +21,11 @@
           <h1 id="banner">Donate a quarter to Hillary every time Trump tweets.</h1>
           <div id="signup">
             <div class="input-group">
-              <input type="email" class="form-control" placeholder="email">
+              <input id="email" type="email" class="form-control" placeholder="email">
               <span class="input-group-btn">
                 <button class="btn btn-success" onclick="pledge()">Pledge</button>
               </span>
+              <span id="emailerror">Please enter a valid email.</span>
             </div>
             <p>Pledge 25 cents for each new Trump tweet. We'll count the tweets and remind you once a week. Unsubscribe at any time!</p>
             <p>He's been tweeting about 10 times per day. Is it worth more than a daily coffee to have a president who doesn't say things like this?</p>
@@ -70,10 +71,30 @@
       window.onresize = getsize;
       
       function pledge() {
-        
-        // ajax call 
-        
-        document.getElementById('modal').setAttribute("style","display:flex");;
+        var email = document.getElementById('email').value;
+        console.log('email = ' + email);
+        var regex = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+        if( !regex.test(email) ) {
+          document.getElementById('emailerror').style.display = 'block';
+          return false;
+        } else {
+          document.getElementById('emailerror').style.display = 'none';
+          var xhr = new XMLHttpRequest();
+          xhr.open('POST', 'https://script.google.com/macros/s/AKfycbyTuqk69p3R7v419Vhuqb8g1soBW5NrxbqkUvcU2gwB1nmlnpQ/exec');
+          xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+          xhr.onreadystatechange = function() {
+            console.log('status ' + xhr.status + ' ' + xhr.statusText);
+            console.log('response ' + xhr.responseText);
+            document.getElementById('modal').setAttribute("style","display:flex");;
+            return;
+          };
+          // url encode form data for sending as post data
+          var data = {email: email};
+          var encoded = Object.keys(data).map(function(k) {
+            return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]);
+          }).join('&');
+          xhr.send(encoded);
+        }
       }
       
       function closemodal() {
