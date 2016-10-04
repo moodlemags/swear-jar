@@ -1,45 +1,50 @@
+- var siteUrl = 'http://www.IfIHadAQuarter.com';
+- var siteTitle = 'Donate to Hillary for each tweet by Trump!'
+- var metaDescription = 'Sign up to donate to Hillary for each tweet by Trump!'
+
 doctype html
 html(lang='en-us')
   head
     meta(charset='UTF-8')
-    meta(name='description', content='Sign up to donate to Hillary for each tweet by Trump!')
     meta(name='viewport', content='width=device-width, initial-scale=1')
-    title Donate to Hillary for each tweet by Trump!
+    title #{siteTitle}
     link(href='https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.2/css/bootstrap.min.css', rel='stylesheet', type='text/css')
     link(href='https://fonts.googleapis.com/css?family=Open+Sans:400,700', rel='stylesheet', type='text/css')
     link(href='css/main.css', rel='stylesheet', type='text/css')
-    meta(property='og:url', content='http://www.IfIHadAQuarter.com')
+    meta(name='description', content=metaDescription)
+    meta(property='og:url', content=siteUrl)
     meta(property='og:type', content='website')
-    meta(property='og:title', content='Donate to Hillary for each tweet by Trump!')
-    meta(property='og:description', content='Sign up to donate to Hillary for each tweet by Trump!')
+    meta(property='og:title', content=siteTitle)
+    meta(property='og:description', content=metaDescription)
     meta(property='og:image', content='https://c1.staticflickr.com/9/8105/8567825104_e14db572a1_k.jpg')
   body
-    #hero
+    header#hero.hero
       .container
         .row
           h1#banner Donate a quarter to Hillary every time Trump tweets.
-          #signup
-            .input-group
-              input#email.form-control(type='email', placeholder='email')
-              span.input-group-btn
-                button.btn.btn-success(onclick='pledge()') Pledge
-              span#emailerror Please enter a valid email.
+    main
+      .container
+        .row
+          .col-xs-12.col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.main-content
+            form#signup(action='https://script.google.com/macros/s/AKfycbyTuqk69p3R7v419Vhuqb8g1soBW5NrxbqkUvcU2gwB1nmlnpQ/exec', method='POST')
+              .form-row
+                .form-group
+                  label.sr-only Email address
+                  input#email.form-control(type='email', name='email', placeholder='email', required)
+                .form-submit
+                  button.btn.btn-submit.btn-success Pledge
+              p#invalid-email.form-message.bg-danger.hidden Please enter a valid email.
+              p#server-error.form-message.bg-danger.hidden Something went wrong. Please try again.
+              p#email-success.form-message.bg-success.hidden Thanks, please check your email!
             p
               | Pledge 25 cents for each new Trump tweet. We'll count the tweets and remind you once a week. Unsubscribe at any time!
             p
               | He's been tweeting about 10 times per day. Is it worth more than a daily coffee to have a president who doesn't say things like this?
-    #modal
-      .modal-content
-        .above-fb
-          p Thanks, please check your email!
-          p
-        .fb-like(data-href='http://www.IfIHadAQuarter.com', data-layout='standard', data-size='large', data-action='like', data-show-faces='true') fb shit
-        button.btn.btn-primary.btn-close(onclick='closemodal()') Close
+            .fb-like(data-href=siteUrl, data-layout='button_count', data-action='like', data-size='large' data-show-faces='false', data-share='true')
     footer
       | DevProgress is an independent group fighting Trump and supporting progressive causes nationwide.
-      | Image by
-      a(href='https://www.flickr.com/photos/gageskidmore') Gage Skidmore
-    script(src='js/main.js')
+      | Image by #[a(href='https://www.flickr.com/photos/gageskidmore') Gage Skidmore]
+    script(src='js/main.min.js')
     // Load Facebook SDK for JavaScript
     #fb-root
     script.
