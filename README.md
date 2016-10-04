@@ -7,10 +7,16 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisities
 
-If you haven't yet, you'll need to [install node and npm](https://nodejs.org/en/download/). Then you'll need to install gulp. From terminal:
+If you haven't yet, you'll need to [install node and npm](https://nodejs.org/en/download/). Then you'll need to install gulp. If you haven't already, enter from terminal (skip this if you do have gulp installed):
 
 ```sh
 $ npm install --global gulp
+```
+
+Finally, `cd` into the project folder and do:
+
+```sh
+$ npm install
 ```
 
 ### Installing
