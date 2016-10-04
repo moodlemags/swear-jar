@@ -1,5 +1,7 @@
 /* eslint-env browser */
-(function() {
+import jQuery from 'jquery';
+
+(function(window, $) {
   'use strict';
 
   // Check to make sure service workers are supported in the current browser,
@@ -55,55 +57,54 @@
   }
 
   // Your custom JavaScript goes here
-  function getsize() {
-    // force the responsive img height and following section's mgn top - xs
-    var imgheight = document.body.clientWidth * 1365 / 2048;
-    imgheight = parseInt(imgheight, 10) - 1;
-    // document.getElementById('banner').setAttribute('style','margin-top:' + (imgheight/2 - 80) + 'px');
-    var banner = document.getElementById('banner');
-    var signup = document.getElementById('signup');
-    if (document.body.clientWidth < 768) {
-      // xs screens - mobile - signup shows below hero
-      banner.setAttribute('style', 'margin-top:' + (imgheight - banner.offsetHeight) + 'px');
-      signup.setAttribute('style', 'margin-top:20px');
-    } else {
-      // non mobile, signup overlays hero
-      banner.setAttribute('style', 'margin-top:20px');
-      signup.setAttribute('style', 'margin-top:360px');
-      document.getElementById('hero').setAttribute('style', 'min-height:' + (window.innerHeight) + 'px');
-    }
-  }
-  getsize();
-  window.onresize = getsize;
+  /** {boolean} Whether an AJAX post is pending. */
+  let submissionInProgress = false;
 
-  window.pledge = function() {
-    var email = document.getElementById('email').value;
-    console.log('email = ' + email);
-    var regex = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
-    if (regex.test(email)) {
-      document.getElementById('emailerror').style.display = 'none';
-      var xhr = new XMLHttpRequest();
-      xhr.open('POST', 'https://script.google.com/macros/s/AKfycbyTuqk69p3R7v419Vhuqb8g1soBW5NrxbqkUvcU2gwB1nmlnpQ/exec');
-      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-      xhr.onreadystatechange = function() {
-        console.log('status ' + xhr.status + ' ' + xhr.statusText);
-        console.log('response ' + xhr.responseText);
-        document.getElementById('modal').setAttribute('style', 'display:flex');
-        return;
-      };
-      // url encode form data for sending as post data
-      var data = {email: email};
-      var encoded = Object.keys(data).map(function(k) {
-        return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]);
-      }).join('&');
-      xhr.send(encoded);
-    } else {
-      document.getElementById('emailerror').style.display = 'block';
+  // Handle form submissions.
+  $('#signup').on('submit', function(e) {
+    // Prevent multiple form submissions.
+    if (submissionInProgress) {
       return false;
     }
-  };
 
-  window.closemodal = function() {
-    document.getElementById('modal').setAttribute('style', 'display:none');
-  };
-})();
+    /** {jQuery} The submitted form. */
+    const $form = $(this);
+
+    /** {string} The value of the email field. */
+    const email = $form.find('[name="email"]').val();
+
+    /** {jQuery} The cached submission button. */
+    const $submitButton = $form.find('.btn-submit');
+
+    /** {string} The initial text of the submit button. */
+    const submitText = $submitButton.html();
+
+    /** {RegExp} A simple email validation. */
+    const emailRegex = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+
+    e.preventDefault();
+    $form.find('.form-message').addClass('hidden');
+
+    // Redundant email validation for Safari, or other browsers that don't
+    // support HTML5 form validation.
+    if (!emailRegex.test(email)) {
+      $('#invalid-email').removeClass('hidden');
+      return false;
+    }
+
+    // Submit the AJAX request and deal with its response.
+    submissionInProgress = true;
+    $form.find('.btn-submit').attr('disabled', 'disabled')
+        .html('Loading&hellip;');
+    $.post($form.attr('action'), {
+      email: email
+    }).done(() => {
+      $('#email-success').removeClass('hidden');
+    }).fail(() => {
+      $('#server-error').removeClass('hidden');
+    }).always(() => {
+      $form.find('.btn-submit').removeAttr('disabled').html(submitText);
+      submissionInProgress = false;
+    });
+  });
+})(window, jQuery);

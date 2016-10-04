@@ -106,8 +106,9 @@ gulp.task('scripts', () => {
     presets: ['es2015']
   })
     .bundle()
-    .pipe(source('main.js'))
+    .pipe(source('main.min.js'))
     .pipe(buffer())
+    .pipe(gulp.dest('.tmp/js'))
     .pipe($.sourcemaps.init({loadMaps: true}))
     .pipe($.uglify())
     .pipe($.sourcemaps.write('./'))
@@ -211,8 +212,8 @@ gulp.task('generate-service-worker', ['copy-sw-scripts'], () => {
     cacheId: pkg.name || 'web-starter-kit',
     // sw-toolbox.js needs to be listed first. It sets up methods used in runtime-caching.js.
     importScripts: [
-      'scripts/sw/sw-toolbox.js',
-      'scripts/sw/runtime-caching.js'
+      'js/sw/sw-toolbox.js',
+      'js/sw/runtime-caching.js'
     ],
     staticFileGlobs: [
       // Add/remove glob patterns to match your directory setup.
