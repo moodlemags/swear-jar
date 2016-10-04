@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Donate to Hillary for each tweet by Trump!</title>
+    <link href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet" type="text/css">
+    <link href="css/main.css" rel="stylesheet" type="text/css">
+    <meta name="description" content="Sign up to donate to Hillary for each tweet by Trump!">
+    <meta property="og:url" content="http://www.IfIHadAQuarter.com">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Donate to Hillary for each tweet by Trump!">
+    <meta property="og:description" content="Sign up to donate to Hillary for each tweet by Trump!">
+    <meta property="og:image" content="https://c1.staticflickr.com/9/8105/8567825104_e14db572a1_k.jpg">
+  </head>
+  <body>
+    <header class="hero" id="hero">
+      <div class="container">
+        <div class="row">
+          <h1 id="banner">Donate a quarter to Hillary every time Trump tweets.</h1>
+        </div>
+      </div>
+    </header>
+    <main>
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 main-content">
+            <form id="signup" action="https://script.google.com/macros/s/AKfycbyTuqk69p3R7v419Vhuqb8g1soBW5NrxbqkUvcU2gwB1nmlnpQ/exec" method="POST">
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="sr-only">Email address</label>
+                  <input class="form-control" id="email" type="email" name="email" placeholder="email" required>
+                </div>
+                <div class="form-submit">
+                  <button class="btn btn-submit btn-success">Pledge</button>
+                </div>
+              </div>
+              <p class="form-message bg-danger hidden" id="invalid-email">Please enter a valid email.</p>
+              <p class="form-message bg-danger hidden" id="server-error">Something went wrong. Please try again.</p>
+              <p class="form-message bg-success hidden" id="email-success">Thanks, please check your email!</p>
+            </form>
+            <p>Pledge 25 cents for each new Trump tweet. We'll count the tweets and remind you once a week. Unsubscribe at any time!</p>
+            <p>He's been tweeting about 10 times per day. Is it worth more than a daily coffee to have a president who doesn't say things like this?</p>
+            <div class="fb-like" data-href="http://www.IfIHadAQuarter.com" data-layout="button_count" data-action="like" data-size="large" data-show-faces="false" data-share="true"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer>
+      DevProgress is an independent group fighting Trump and supporting progressive causes nationwide.
+      Image by <a href="https://www.flickr.com/photos/gageskidmore">Gage Skidmore</a>
+    </footer>
+    <script src="js/main.min.js"></script>
+    <!-- Load Facebook SDK for JavaScript-->
+    <div id="fb-root"></div>
+    <script>
+      (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "http://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.7";
+      fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script>
+  </body>
+</html>
